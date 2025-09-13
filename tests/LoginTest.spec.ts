@@ -5,16 +5,44 @@ const client = new OpenAI({apiKey:"sk-proj-3z-KvAmuQBjvR0io68RwcT80DIfT8Bezsalq6
 
 
 test('@smoke - Sign In Application', async ({ page }) => {
-    await page.goto("https://demo.automationtesting.in");
+  // Read environment variables with fallback values
+  const baseUrl = process.env.BASE_URL || 'https://demo.automationtesting.in';
+  const username = process.env.USERNAME || 'balachander_india@yahoo.com';
+  const password = process.env.PASSWORD || 'Welcome12345';
+  const expectedError = process.env.EXPECTED_ERROR || 'Invalid User Name or PassWord';
 
-    await page.locator('#btn1').click();
+  console.log(`Testing URL: ${baseUrl}`);
+  console.log(`Using username: ${username}`);
 
-    await page.getByPlaceholder('E mail').fill('balachander_india@yahoo.com');
-    await page.getByPlaceholder('Password').fill('Welcome12345');
-    await page.locator('#enterbtn').click();
+  // Navigate to the application
+  await page.goto(baseUrl);
 
-    const errorMessage = await page.locator('#errormsg').innerText();
-    expect(errorMessage).toBe('Invalid User Name or PassWord');
+  // Click sign in button with better selector and waiting
+  const signInButton = page.locator('#btn1');
+  await expect(signInButton).toBeVisible();
+  await signInButton.click();
+
+  // Wait for login form to appear
+  await page.waitForURL(/Register.html/); // Wait for URL change
+  await expect(page.getByPlaceholder('E mail')).toBeVisible();
+
+  // Fill login form
+  await page.getByPlaceholder('E mail').fill(username);
+  await page.getByPlaceholder('Password').fill(password);
+  
+  // Click login button
+  await page.locator('#enterbtn').click();
+
+  // Wait for error message to appear with timeout
+  const errorMessageLocator = page.locator('#errormsg');
+  await expect(errorMessageLocator).toBeVisible({ timeout: 5000 });
+  
+  // Get and validate error message
+  const errorMessage = await errorMessageLocator.innerText();
+  expect(errorMessage).toBe(expectedError);
+
+  // Optional: Take screenshot for evidence
+  await page.screenshot({ path: 'test-results/smoke-login-error.png', fullPage: true });
 });
 
 test('@Regression - Fill the details into the application', async ({ page }) => {
