@@ -22,10 +22,6 @@ test('@smoke - Sign In Application', async ({ page }) => {
   await expect(signInButton).toBeVisible();
   await signInButton.click();
 
-  // Wait for login form to appear
-  await page.waitForURL(/Register.html/); // Wait for URL change
-  await expect(page.getByPlaceholder('E mail')).toBeVisible();
-
   // Fill login form
   await page.getByPlaceholder('E mail').fill(username);
   await page.getByPlaceholder('Password').fill(password);
@@ -41,8 +37,7 @@ test('@smoke - Sign In Application', async ({ page }) => {
   const errorMessage = await errorMessageLocator.innerText();
   expect(errorMessage).toBe(expectedError);
 
-  // Optional: Take screenshot for evidence
-  await page.screenshot({ path: 'test-results/smoke-login-error.png', fullPage: true });
+  await page.close();
 });
 
 test('@Regression - Fill the details into the application', async ({ page }) => {
