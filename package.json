@@ -8,10 +8,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.54.2",
-    "@types/node": "^24.2.1"
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.9.1",
+    "allure-playwright": "^3.4.1"
   },
   "dependencies": {
-    "openai": "^5.12.2"
+    "openai": "^6.6.0"
   }
 }

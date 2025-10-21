@@ -1,45 +1,83 @@
-name: Playwright Smoke Tests
+name: Playwright Smoke Tests  # ✅ Name of the workflow shown in GitHub Actions
 
 on:
+  # ✅ Run automatically when code is pushed or PR created to main/master branches
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch: # Allows manual triggering
+
+  # ✅ Allows manual run from the "Actions" tab in GitHub
+  workflow_dispatch:
 
 jobs:
   smoke-tests:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
+    timeout-minutes: 360  # ✅ Stop the job automatically if it runs over 360 mins
+    runs-on: ubuntu-latest  # ✅ Use GitHub’s latest Ubuntu runner (clean environment)
 
     steps:
+    # ----------------------------------------------------------
+    # 1️⃣ Checkout your repository code into the runner
+    # ----------------------------------------------------------
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4  # ✅ Pulls your project files from the repo into the runner
 
+    # ----------------------------------------------------------
+    # 2️⃣ Setup Node.js environment
+    # ----------------------------------------------------------
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v4  # ✅ Configures the Node.js runtime version
       with:
-        node-version: '18'
-        cache: 'npm'
+        node-version: 18           # ✅ Specifies Node 18 (Playwright supports Node 18+)
+        cache: npm                 # ✅ Caches node_modules to speed up future runs
 
+    # ----------------------------------------------------------
+    # 3️⃣ Install project dependencies from package-lock.json
+    # ----------------------------------------------------------
     - name: Install dependencies
-      run: npm ci
+      run: npm ci  # ✅ Clean install based on lockfile for consistent builds
 
+    # ----------------------------------------------------------
+    # 4️⃣ Install required Playwright browsers (Chromium, Firefox, WebKit)
+    # ----------------------------------------------------------
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps  # ✅ Downloads browsers + dependencies for Playwright tests
 
+    # ----------------------------------------------------------
+    # 5️⃣ Run Playwright smoke test cases only (tagged with @smoke)
+    # ----------------------------------------------------------
     - name: Run Smoke Tests
-      run: npx playwright test --grep "@smoke"
+      run: npx playwright test --grep "@smoke"  # ✅ Runs only tests containing @smoke in their title or tag
       env:
-        # Add any required environment variables here
-        BASE_URL: ${{ vars.BASE_URL || 'https://demo.automationtesting.in' }}
-        USERNAME: ${{ secrets.TEST_USERNAME }}
-        PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        BASE_URL: ${{ vars.BASE_URL || 'https://demo.automationtesting.in' }}  # ✅ Base URL (defaults if not set)
+        USERNAME: ${{ secrets.TEST_USERNAME }}  # ✅ Securely injects username from GitHub Secrets
+        PASSWORD: ${{ secrets.TEST_PASSWORD }}  # ✅ Securely injects password from GitHub Secrets
 
-    - name: Upload Playwright Report
-      if: always()
+    # ----------------------------------------------------------
+    # 6️⃣ Generate the Allure test report after tests run
+    # ----------------------------------------------------------
+    - name: Generate Allure Report
+      if: always()  # ✅ Runs even if tests fail (so report still generated)
+      continue-on-error: true  # ✅ Prevents the job from failing if allure-results folder is missing
+      run: npx allure generate allure-results --clean -o allure-report  # ✅ Creates HTML report from raw allure results
+
+    # ----------------------------------------------------------
+    # 7️⃣ Upload Allure report as an artifact for download
+    # ----------------------------------------------------------
+    - name: Upload Allure Playwright Report
+      if: always()  # ✅ Always upload, even if tests fail
+      uses: actions/upload-artifact@v4  # ✅ Built-in GitHub Action to attach files to workflow results
+      with:
+        name: allure-report             # ✅ Name shown under "Artifacts" in Actions summary
+        path: allure-report             # ✅ Folder to upload (contains generated Allure HTML files)
+        retention-days: 30              # ✅ Keep report downloadable for 30 days
+
+    # ----------------------------------------------------------
+    # 8️⃣ Upload Playwright trace/video report when test fails
+    # ----------------------------------------------------------
+    - name: Upload Playwright Trace (if failed)
+      if: failure()  # ✅ Only upload if tests failed
       uses: actions/upload-artifact@v4
       with:
-        name: playwright-report
+        name: playwright-trace
         path: playwright-report/
-        retention-days: 30
