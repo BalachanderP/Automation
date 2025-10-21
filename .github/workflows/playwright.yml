@@ -18,11 +18,11 @@ jobs:
     steps:
     # 1️⃣ Checkout code
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # 2️⃣ Setup Node.js
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 18
         cache: npm
@@ -58,7 +58,7 @@ jobs:
     # 8️⃣ Upload Allure report as artifact
     - name: Upload Allure Playwright Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: allure-report
         path: allure-report
@@ -67,7 +67,7 @@ jobs:
     # 9️⃣ Upload Playwright trace/video (if failed)
     - name: Upload Playwright Trace (if failed)
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: playwright-trace
         path: playwright-report/
