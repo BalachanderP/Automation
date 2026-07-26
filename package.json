@@ -2,15 +2,17 @@
   "name": "playwrightypescripttdddemo",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "get-workitem": "node scripts/getWorkItem.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
+    "@playwright/test": "^1.62.0",
     "@types/node": "^24.9.1",
-    "allure-playwright": "^3.4.1"
+    "allure-playwright": "^3.10.2"
   },
   "dependencies": {
     "openai": "^6.6.0"

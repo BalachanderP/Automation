@@ -1,73 +1,41 @@
 import { test, expect } from '@playwright/test';
-import openai, { OpenAI } from "openai";
+import { LoginPage } from '../src/page/login-page';
+import { RegistrationPage } from '../src/page/registration-page';
+import { getEnvValue, loadEnvFile } from '../src/utils/env';
 
-const client = new OpenAI({apiKey:"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"});
+loadEnvFile();
 
+const baseUrl = getEnvValue(['BASE_URL', 'URL']);
+const username = getEnvValue(['USERNAME', 'USER_NAME', 'USER']);
+const password = getEnvValue(['PASSWORD', 'PASS']);
+const expectedError = getEnvValue(['EXPECTED_ERROR', 'ERROR']).trim();
 
-test('@smoke - Sign In Application', async ({ page }) => {
-  // Read environment variables with fallback values
-  const baseUrl = process.env.BASE_URL || 'https://demo.automationtesting.in';
-  const username = process.env.USERNAME || 'balachander_india@yahoo.com';
-  const password = process.env.PASSWORD || 'Welcome12345';
-  const expectedError = process.env.EXPECTED_ERROR || 'Invalid User Name or PassWord';
+test('@smoke - Sign In Application with Page Object', async ({ page }) => {
+  const loginPage = new LoginPage(page);
 
-  console.log(`Testing URL: ${baseUrl}`);
-  console.log(`Using username: ${username}`);
+  await loginPage.open(baseUrl);
+  await loginPage.signIn(username, password);
 
-  // Navigate to the application
-  await page.goto(baseUrl);
-
-  // Click sign in button with better selector and waiting
-  const signInButton = page.locator('#btn1');
-  await expect(signInButton).toBeVisible();
-  await signInButton.click();
-
-  // Fill login form
-  await page.getByPlaceholder('E mail').fill(username);
-  await page.getByPlaceholder('Password').fill(password);
-  
-  // Click login button
-  await page.locator('#enterbtn').click();
-
-  // Wait for error message to appear with timeout
-  const errorMessageLocator = page.locator('#errormsg');
-  await expect(errorMessageLocator).toBeVisible({ timeout: 5000 });
-  
-  // Get and validate error message
-  const errorMessage = await errorMessageLocator.innerText();
-  expect(errorMessage).toBe(expectedError);
-
-  await page.close();
+  const errorMessage = await loginPage.getErrorMessage();
+  expect(errorMessage?.trim()).toBe(expectedError);
 });
 
+
 test('@Regression - Fill the details into the application', async ({ page }) => {
+  const registrationPage = new RegistrationPage(page);
 
-    await page.goto('https://demo.automationtesting.in');
+  await registrationPage.openThroughHome(baseUrl, 'balachander_india@yahoo.com');
+  await registrationPage.expectTitle('Register');
 
-    await page.locator('#email').fill('balachander_india@yahoo.com');
-
-    await Promise.all([
-        page.waitForNavigation(),  // Wait for navigation triggered by click
-        page.locator('#enterimg').click(),
-    ]);
-
-    const pageTitle = await page.title();
-    expect(pageTitle).toBe("Register");
-
-
-    await page.getByPlaceholder('First Name').fill('Bala');
-    await page.getByPlaceholder('Last Name').fill('chander');
-
-    await page.locator('[ng-model="Adress"]').fill('123 Main Street');
-    await page.locator('[ng-model="EmailAdress"]').fill('balachander_india@yahoo.com');
-
-    await page.locator('[ng-model="Phone"]').fill('9994294462');
-
-    await page.locator('[name="radiooptions"]').first().check();
-
-    await page.locator('input[type="checkbox"][value="Cricket"]').check();
-    await page.locator('input[type="checkbox"][value="Movies"]').check();
-    
+  await registrationPage.fillRegistration({
+    firstName: 'Bala',
+    lastName: 'chander',
+    address: '123 Main Street',
+    email: 'balachander_india@yahoo.com',
+    phone: '9994294462',
+    genderIndex: 0,
+    hobbies: ['Cricket', 'Movies'],
+  });
 });
 
 
