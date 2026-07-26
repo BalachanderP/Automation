@@ -21,7 +21,7 @@ test('@smoke - Sign In Application with Page Object', async ({ page }) => {
 });
 
 
-test('@Regression - Fill the details into the application', async ({ page }) => {
+test('@smoke - Fill the details into the application', async ({ page }) => {
   const registrationPage = new RegistrationPage(page);
 
   await registrationPage.openThroughHome(baseUrl, 'balachander_india@yahoo.com');
