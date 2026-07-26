@@ -1,7 +1,38 @@
 
-# Playwright
+# Dependencies
 node_modules/
+
+# Playwright artifacts
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Allure reports
+/allure-report/
+/allure-results/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+env/*.env
+env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Build outputs
+/dist/
+/build/
+/coverage/
