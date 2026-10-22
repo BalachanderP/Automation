@@ -1,0 +1,97 @@
+{
+    "metadata": {
+        "version": "1.1.0",
+        "owner": "REITSuite QE Automation",
+        "purpose": "Business policy and endpoint precondition registry for deterministic analysis and generation.",
+        "lastReviewed": "2026-09-13"
+    },
+    "responsibilityProfile": {
+        "scope": "Business policy and precondition SSOT",
+        "questionAnswered": "What conditions must be satisfied before endpoint execution?",
+        "answers": [
+            "What must exist before endpoint execution?",
+            "What business rules apply?",
+            "What prerequisites are required?",
+            "What permissions are needed?"
+        ],
+        "sourceFields": {
+            "globalPreconditions": "globalRules",
+            "endpointRules": "endpointRules[*].conditions",
+            "endpointMapping": "endpointRules[*].endpoint",
+            "permissionsAndPrereqs": "endpointRules[*].conditions"
+        }
+    },
+    "globalRules": [
+        {
+            "id": "GR-001",
+            "condition": "Create and Update endpoints require dependency setup from root entity to target entity."
+        },
+        {
+            "id": "GR-AUTH-001",
+            "condition": "Authenticated user is required."
+        },
+        {
+            "id": "GR-AUTH-002",
+            "condition": "Required authorization must be present."
+        }
+    ],
+    "endpointRules": [
+        {
+            "id": "BR-CLIENT-POST-001",
+            "endpoint": "POST /api/clients",
+            "conditions": [
+                "User has CreateClient permission",
+                "Request contains required identity fields and engagement administrator context"
+            ]
+        },
+        {
+            "id": "BR-AUTO-POST-CLIENTS-SETACTIVEUSERS-294",
+            "endpoint": "POST /api/clients/setActiveUsers",
+            "conditions": [
+                "User has CreateClient permission",
+                "Valid request payload"
+            ]
+        },
+        {
+            "id": "BR-AUTO-POST-CLIENTS-SWITCHCLIENTTYPE-295",
+            "endpoint": "POST /api/clients/switchClientType",
+            "conditions": [
+                "User has CreateClient permission",
+                "Valid request payload"
+            ]
+        },
+        {
+            "id": "BR-AUTO-POST-CLIENTS-TOGGLECLIENTLOCKONPURGEAPPROVAL-296",
+            "endpoint": "POST /api/clients/toggleClientLockOnPurgeApproval",
+            "conditions": [
+                "User has CreateClient permission",
+                "Valid request payload"
+            ]
+        },
+        {
+            "id": "BR-AUTO-GET-CLIENTS-104",
+            "endpoint": "GET /api/clients",
+            "conditions": [
+                "User has ReadClient permission"
+            ]
+        },
+        {
+            "id": "BR-AUTO-GET-CLIENTS-ID-105",
+            "endpoint": "GET /api/clients/{id}",
+            "conditions": [
+                "clientId is valid",
+                "User has ReadClient permission",
+                "Client must exist"
+            ]
+        },
+        {
+            "id": "BR-AUTO-GET-CLIENTS-ID-HASANALYTICSREPORT-106",
+            "endpoint": "GET /api/clients/{id}/hasAnalyticsReport",
+            "conditions": [
+                "clientId is valid",
+                "User has ReadClient permission",
+                "Client must exist"
+            ]
+        }
+    ]
+}

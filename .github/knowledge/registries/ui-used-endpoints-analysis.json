@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "version": "1.1.0",
+    "owner": "REITSuite QE Automation",
+    "purpose": "UI-observed endpoint usage evidence. Runtime status codes and payloads are evidence-only and never expectation authority.",
+    "lastReviewed": "2026-09-14"
+  },
+  "agentGuidance": {
+    "purpose": "Provides UI-observed payload and response usage signals to enrich endpoint analysis and test design.",
+    "usedBy": [
+      "openapi-contract-analyzer",
+      "test-requirements-analyzer",
+      "test-designer",
+      "test-script-generator"
+    ]
+  },
+  "totalRows": 298,
+  "data": [
+    {
+      "Method": "GET",
+      "Endpoint": "api/Securities/downloadQuarterlySecurityErrorReport?clientId={param}&reportPeriodId={param}&fileUploadId={param}",
+      "RequestPayloadType": "application/json",
+      "RequestPayload": "No request body",
+      "ResponseType": "File",
+      "ResponseBody": "Binary file/blob consumed by UI",
+      "StatusCodes": "200,401,404",
+      "RequiredFields": "N/A (No request body)",
+      "OptionalFields": "N/A (No request body)",
+      "ValidationRulesSample": "N/A (No request body)",
+      "RuntimeRequestPayloadSample": "No request body",
+      "RuntimeResponseBodySample": "Binary file/blob response"
+    },
+    {
+      "Method": "GET",
+      "Endpoint": "api/Securities/exportQuarterlySecuritiesData?clientId={param}&periodId={param}",
+      "RequestPayloadType": "application/json",
+      "RequestPayload": "No request body",
+      "ResponseType": "File",
+      "ResponseBody": "Binary file/blob consumed by UI",
+      "StatusCodes": "200,401,404",
+      "RequiredFields": "N/A (No request body)",
+      "OptionalFields": "N/A (No request body)",
+      "ValidationRulesSample": "N/A (No request body)",
+      "RuntimeRequestPayloadSample": "No request body",
+      "RuntimeResponseBodySample": "Binary file/blob response"
+    },
+    {
+      "Method": "POST",
+      "Endpoint": "api/Securities/importQuarterlySecurities",
+      "RequestPayloadType": "multipart/form-data",
+      "RequestPayload": "UI sends body expression: formData",
+      "ResponseType": "File",
+      "ResponseBody": "Consumed as response.json()",
+      "StatusCodes": "200,400,500",
+      "RequiredFields": "TBDModel[]",
+      "OptionalFields": "TBDModel[]",
+      "ValidationRulesSample": "N/A (Validation metadata not captured in runtime evidence)",
+      "RuntimeRequestPayloadSample": "{\"sample\":\"value\"}",
+      "RuntimeResponseBodySample": "Binary file/blob response"
+    },
+    {
+      "Method": "POST",
+      "Endpoint": "api/analysisReport",
+      "RequestPayloadType": "application/json",
+      "RequestPayload": "UI sends body expression: JSON.stringify(payload)",
+      "ResponseType": "File",
+      "ResponseBody": "Consumed as response.json()",
+      "StatusCodes": "200,400,401,403",
+      "RequiredFields": "DownloadReportRequest[PeriodId]",
+      "OptionalFields": "DownloadReportRequest[ExcludedPsqs, ReportItems, IncludePsqComments, IncludeArqcComments]",
+      "ValidationRulesSample": "PeriodId:Required",
+      "RuntimeRequestPayloadSample": "{\"PeriodId\":1,\"ReportItems\":[1],\"ExcludedPsqs\":[1],\"IncludePsqComments\":true,\"IncludeArqcComments\":true}",
+      "RuntimeResponseBodySample": "Binary file/blob response",
+      "EndpointMappingConfidence": "HIGH",
+      "EndpointMappingEvidence": "Joined exact: ReportApi\\Controllers\\AnalysisReportController.cs::DownloadReport (POST /api/analysisReport)"
+    },
+    {
+      "Method": "GET",
+      "Endpoint": "api/analyticsEntitlement/getAnalyticsEntitlement",
+      "RequestPayloadType": "application/json",
+      "RequestPayload": "No request body",
+      "ResponseType": "application/json",
+      "ResponseBody": "Consumed as response.json()",
+      "StatusCodes": "200,400,401,403,404",
+      "RequiredFields": "N/A (No request body)",
+      "OptionalFields": "N/A (No request body)",
+      "ValidationRulesSample": "N/A (No request body)",
+      "RuntimeRequestPayloadSample": "No request body",
+      "RuntimeResponseBodySample": "{\"success\":true,\"data\":{\"sample\":\"value\"}}"
+    },
+    {
+      "Method": "POST",
+      "Endpoint": "api/analyticsEntitlement/manageAnalyticsEntitlement",
+      "RequestPayloadType": "application/json",
+      "RequestPayload": "UI sends body expression: JSON.stringify(request)",
+      "ResponseType": "application/json",
+      "ResponseBody": "Consumed as response.json()",
+      "StatusCodes": "200,401,500",
+      "RequiredFields": "ManageAnalyticsEntitlementRequest[]",
+      "OptionalFields": "ManageAnalyticsEntitlementRequest[AnalyticsEntitlementDetail, AnalyticsEntitlementReportCatalogDetail]",
+      "ValidationRulesSample": "N/A (No explicit request-model annotation rules found in source)",
+      "RuntimeRequestPayloadSample": "{\"AnalyticsEntitlementDetail\":[{}],\"AnalyticsEntitlementReportCatalogDetail\":[{}]}",
+      "RuntimeResponseBodySample": "{\"success\":true,\"data\":{\"AnalyticsEntitlementDetail\":[{}],\"AnalyticsEntitlementReportCatalogDetail\":[{}]}}",
+      "EndpointMappingConfidence": "HIGH",
+      "EndpointMappingEvidence": "Joined exact: AuthApi\\Controllers\\AnalyticsEntitlementController.cs::ManageAnalyticsEntitlement (POST /api/analyticsEntitlement/manageAnalyticsEntitlement)"
+    }
+  ]
+}

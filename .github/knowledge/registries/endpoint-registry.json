@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "version": "1.1.0",
+    "owner": "REITSuite QE Automation",
+    "purpose": "Enterprise endpoint catalog SSOT for coverage, routing, and contract-aware test design.",
+    "lastReviewed": "2026-10-10",
+    "generatedDate": "2026-08-05",
+    "extractedDate": "2026-09-10",
+    "normalizedDate": "2026-09-13",
+    "questionAnswered": "What APIs are available and how are they used?",
+    "sourceApis": [
+      "AuthApi",
+      "ClientApi",
+      "ReitApi",
+      "ReportApi",
+      "TrialBalanceApi"
+    ]
+  },
+  "responsibilityProfile": {
+    "scope": "Endpoint catalog SSOT",
+    "answers": [
+      "What endpoints exist?",
+      "What does the endpoint do?",
+      "Which entity does it manage?",
+      "What payload does it accept?",
+      "What response does it return?"
+    ],
+    "sourceFields": {
+      "endpointList": "endpoints[*].method + endpoints[*].endpoint",
+      "behavior": "endpoints[*].businessRuleRefs",
+      "managedEntity": "endpoints[*].dependencyRef.entity",
+      "requestPayload": "endpoints[*].requestSchema and endpoints[*].parameters",
+      "responseContract": "endpoints[*].responseSchema and endpoints[*].statusCodes"
+    }
+  },
+  "endpoints": [
+    {
+      "module": "ClientApi",
+      "controller": "ClientsController",
+      "endpoint": "/api/clients",
+      "method": "GET",
+      "parameters": [],
+      "endpointId": "EP_CLIENTAPI_001",
+      "requestSchema": "None",
+      "responseSchema": "OpenApiResponseModel",
+      "statusCodes": [
+        {
+          "code": 200,
+          "meaning": "OK"
+        }
+      ],
+      "businessRuleRefs": [
+        "BR-CLIENTS-005"
+      ],
+      "description": "GET /api/clients endpoint",
+      "businessDomain": "Client Management",
+      "apiVersion": "v1",
+      "authentication": {
+        "type": "Bearer"
+      }
+    },
+    {
+      "module": "ClientApi",
+      "controller": "ClientsController",
+      "endpoint": "/api/clients/{id}",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "long",
+          "source": "route"
+        }
+      ],
+      "endpointId": "EP_CLIENTAPI_002",
+      "requestSchema": "None",
+      "responseSchema": "OpenApiResponseModel",
+      "statusCodes": [
+        {
+          "code": 200,
+          "meaning": "OK"
+        }
+      ],
+      "businessRuleRefs": [
+        "BR-CLIENTS-006"
+      ],
+      "description": "GET /api/clients/{id} endpoint",
+      "businessDomain": "Client Management",
+      "apiVersion": "v1",
+      "authentication": {
+        "type": "Bearer"
+      }
+    }
+  ]
+}

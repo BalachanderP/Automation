@@ -1,0 +1,126 @@
+{
+    "metadata": {
+        "version": "1.3.0",
+        "owner": "REITSuite QE Automation",
+        "purpose": "Enterprise status policy defaults and tie-breaker rules for expected API status determination.",
+        "lastReviewed": "2026-10-10"
+    },
+    "registry": "status-code-policy-registry",
+    "version": "1.3.0",
+    "lastReviewed": "2026-10-10",
+    "owner": "REITSuite QE Automation",
+    "status": "Active",
+    "description": "Enterprise status policy defaults and tie-breaker rules for expected API status determination.",
+    "precedence": ["Enterprise QA Standard", "Business Rules Registry", "Status Code Policy Registry"],
+    "runtimeEvidencePolicy": {
+        "overrideExpectedStatus": false,
+        "useFor": ["Defect Detection", "Implementation Analysis"]
+    },
+    "expectedStatusRule": {
+        "description": "Expected status codes are determined from Enterprise QA Standard and Status Policy Registry. Runtime responses must never change expected status values."
+    },
+    "methodDefaults": {
+        "GET": {
+            "success": 200
+        },
+        "POST": {
+            "create": 201,
+            "action": 200,
+            "asyncAction": 202
+        },
+        "PUT": {
+            "successWithBody": 200,
+            "successWithoutBody": 204
+        },
+        "PATCH": {
+            "successWithBody": 200,
+            "successWithoutBody": 204
+        },
+        "DELETE": {
+            "successWithBody": 200,
+            "successWithoutBody": 204
+        }
+    },
+    "errorDefaults": {
+        "badRequest": 400,
+        "unauthorized": 401,
+        "forbidden": 403,
+        "notFound": 404,
+        "methodNotAllowed": 405,
+        "conflict": 409,
+        "unsupportedMediaType": 415,
+        "unprocessableEntity": 422,
+        "tooManyRequests": 429,
+        "internalServerError": 500,
+        "notImplemented": 501,
+        "serviceUnavailable": 503,
+        "gatewayTimeout": 504
+    },
+    "statusCategories": {
+        "2xx": "Success",
+        "4xx": "Client Error",
+        "5xx": "Server Error"
+    },
+    "negativeTestDefaults": {
+        "invalidId": 404,
+        "duplicateCreate": 409,
+        "invalidPayload": 400
+    },
+    "statusCodeAuthorityMatrix": {
+        "GET": {
+            "success": [200],
+            "commonNegative": [400, 401, 403, 404]
+        },
+        "POST_CREATE": {
+            "success": [201],
+            "commonNegative": [400, 401, 403, 409]
+        },
+        "POST_ACTION": {
+            "success": [200],
+            "commonNegative": [400, 401, 403]
+        },
+        "POST_ASYNC": {
+            "success": [202],
+            "commonNegative": [400, 401, 403, 500]
+        },
+        "PUT": {
+            "success": [200, 204],
+            "commonNegative": [400, 401, 403, 404, 409]
+        },
+        "DELETE": {
+            "success": [200, 204],
+            "commonNegative": [401, 403, 404, 409]
+        }
+    },
+    "endpointClassificationHeuristics": {
+        "postCreateKeywords": ["create", "add", "import", "upload"],
+        "postAsyncKeywords": ["initiate", "queue", "bulk", "start"],
+        "downloadIndicators": ["download", "export", "ResponseType=File"]
+    },
+    "standardizationRules": {
+        "blankStatusCodes": "When endpoint StatusCodes are blank in UI evidence, synthesize expected status codes from statusCodeAuthorityMatrix using method and endpoint classification heuristics.",
+        "downloadMustInclude200": true,
+        "createShouldPrefer201": true,
+        "asyncShouldPrefer202": true,
+        "uiEvidenceIsNonAuthoritative": true
+    },
+    "tieBreakers": {
+        "400vs422": {
+            "400": "Invalid syntax or structural request failure",
+            "422": "Valid syntax but business/domain semantic failure"
+        },
+        "401vs403": {
+            "401": "Missing or invalid authentication",
+            "403": "Authenticated but not authorized"
+        }
+    },
+    "responseHeaderExpectations": {
+        "201": ["location"],
+        "429": ["retry-after"],
+        "500": ["x-correlation-id"],
+        "503": ["retry-after"]
+    },
+    "sourceEvidence": {
+        "notes": "Rules aligned with extracted reference document and enterprise API testing standards."
+    }
+}

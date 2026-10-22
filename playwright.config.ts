@@ -12,6 +12,8 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalSetup: require.resolve('./src/framework/lifeCycle/global-setup'),
+  globalTeardown: require.resolve('./src/framework/lifeCycle/global-teardown'),
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
