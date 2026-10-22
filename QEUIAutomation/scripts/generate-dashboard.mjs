@@ -23,7 +23,9 @@ const apiUrl = new URL(
 const response = await fetch(apiUrl, {
   headers: {
     Accept: "application/vnd.github+json",
-    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    ...(process.env.GITHUB_TOKEN
+      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+      : {}),
     "X-GitHub-Api-Version": "2022-11-28",
   },
 });
@@ -96,10 +98,17 @@ const siteDirectory = path.resolve("artifacts/site");
 const reportDirectory = path.resolve("artifacts/allure-report");
 
 await mkdir(siteDirectory, { recursive: true });
-await cp(reportDirectory, path.join(siteDirectory, "allure"), {
-  recursive: true,
-  force: true,
-});
+
+try {
+  await cp(reportDirectory, path.join(siteDirectory, "allure"), {
+    recursive: true,
+    force: true,
+  });
+} catch (error) {
+  if (error.code !== "ENOENT") {
+    throw error;
+  }
+}
 
 try {
   await copyFile(

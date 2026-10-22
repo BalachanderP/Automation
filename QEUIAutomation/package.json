@@ -16,7 +16,8 @@
     "@playwright/test": "^1.64.0",
     "@types/node": "^26.6.5",
     "allure": "^3.21.0",
-    "allure-playwright": "^3.14.0"
+    "allure-playwright": "^3.14.0",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "openai": "^7.42.0"
