@@ -376,11 +376,11 @@ npx playwright test --debug --workers 1
 # Run tests with Allure reporter
 npx playwright test --reporter=allure-playwright --workers 1
 
-# Generate Allure report
-npx allure generate artifacts/test-results/allure-results --clean -o artifacts/test-results/allure-report
+# Generate Allure 3 report
+npm run allure:generate
 
 # Open Allure report
-npx allure open artifacts/test-results/allure-report
+npm run allure:open
 ```
 
 ## Recommended Execution Order
@@ -455,7 +455,7 @@ After all files have been executed and analyzed, display the enhanced summary:
 - Review script manually for unresolved test issue
 
 
-📎 Allure Report: artifacts/test-results/allure-report
+📎 Allure Report: artifacts/allure-report
 ```
 
 When API failures occur, include whether the failure used the standardized sections:
@@ -483,7 +483,7 @@ After the Final Summary Report, display:
 |--------|--------|
 | 1 | Show per-file failure details with classification, root cause, and fix status |
 | 2 | Re-run only the files that failed (using `--workers 1`) |
-| 3 | Generate Allure report (`npx allure generate` + `npx allure open`) |
+| 3 | Generate and open Allure report (`npm run allure:generate` + `npm run allure:open`) |
 | 4 | Re-display the Execute & Fix Failures sub-menu |
 
 ---

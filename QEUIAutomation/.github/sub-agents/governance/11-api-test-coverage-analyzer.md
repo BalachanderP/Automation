@@ -272,7 +272,7 @@ Generate one table per API module found:
 | TC-004 | [Scenario description] | Edge | ❌ No | — | Missing |
 ```
 
-> **Note:** Execution status (Passed/Failed) is only available after test execution. To include it, parse `artifacts/test-results/allure-results/` for last known results. If no execution data is available, omit the column.
+> **Note:** Execution status (Passed/Failed) is only available after test execution. To include it, parse `artifacts/allure-results/` for last known results. If no execution data is available, omit the column.
 
 **Column Definitions:**
 

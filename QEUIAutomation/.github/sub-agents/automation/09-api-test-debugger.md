@@ -290,10 +290,10 @@ Debugger behavior:
 
 When analyzing failures, check:
 
-1. `allure-results/` for individual test JSON files with error details
+1. `artifacts/allure-results/` for individual test JSON files with error details
 2. Test step breakdown shows exactly which step failed
 3. Attachments may contain request/response payloads and logs
-4. Use `npx allure open allure-report` to browse failures visually
+4. Use `npx allure open artifacts/allure-report` to browse failures visually
 
 ## 📌 Rules
 
