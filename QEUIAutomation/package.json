@@ -1,0 +1,25 @@
+{
+  "name": "playwrightypescripttdddemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "get-workitem": "node scripts/getWorkItem.js",
+    "allure:generate": "allure generate ./artifacts/allure-results --clean --output ./artifacts/allure-report",
+    "allure:open": "allure open ./artifacts/allure-report",
+    "alllure:open": "allure open ./artifacts/allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
+    "allure": "^3.21.0",
+    "allure-playwright": "^3.14.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "openai": "^7.42.0"
+  }
+}

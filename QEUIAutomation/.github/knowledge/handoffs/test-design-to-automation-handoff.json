@@ -1,0 +1,20 @@
+{
+  "$schema": "../schemas/stage-handoff-template.schema.json",
+  "handoffType": "test-design-to-automation",
+  "version": "1.0.0",
+  "sourceStage": "test-design",
+  "targetStage": "automation",
+  "status": "template",
+  "context": {
+    "analysisId": null,
+    "apiType": null,
+    "endpoint": null,
+    "httpMethod": null
+  },
+  "artifacts": {
+    "analysisHandoff": null,
+    "testCasesPath": null,
+    "traceabilityMatrixPath": null
+  },
+  "notes": []
+}

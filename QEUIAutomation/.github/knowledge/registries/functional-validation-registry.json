@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "version": "1.1.0",
+    "owner": "QA Automation Team",
+    "purpose": "What validations should be generated?",
+    "lastReviewed": "2026-09-13"
+  },
+  "agentGuidance": {
+    "purpose": "Defines functional-only validation taxonomy and method constraints. Security validation is owned by security-validation-registry.json.",
+    "usedBy": [
+      "test-designer",
+      "test-script-generator",
+      "coverage-analyzer"
+    ]
+  },
+  "taxonomy": {
+    "authoritativeSource": "test-standards.md",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Business Validation"
+      },
+      {
+        "id": 2,
+        "name": "Authentication Validation"
+      },
+      {
+        "id": 3,
+        "name": "Authorization and RBAC Validation"
+      },
+      {
+        "id": 4,
+        "name": "Input Validation"
+      },
+      {
+        "id": 5,
+        "name": "Field-Type Validation"
+      },
+      {
+        "id": 6,
+        "name": "Required vs Optional Validation"
+      },
+      {
+        "id": 7,
+        "name": "Boundary Validation"
+      },
+      {
+        "id": 8,
+        "name": "Duplicate and Conflict Validation"
+      },
+      {
+        "id": 9,
+        "name": "CRUD Functional Validation"
+      },
+      {
+        "id": 10,
+        "name": "Response Contract Validation"
+      },
+      {
+        "id": 11,
+        "name": "Header and Content-Type Validation"
+      },
+      {
+        "id": 12,
+        "name": "REST Compliance Validation"
+      },
+      {
+        "id": 13,
+        "name": "File Import and Export Validation"
+      }
+    ]
+  },
+  "methodRules": {
+    "GET": {
+      "requestBodyAllowed": false,
+      "requestBodyCollection": "prohibited"
+    },
+    "POST": {
+      "requestBodyAllowed": true,
+      "requestBodyCollection": "required"
+    },
+    "PUT": {
+      "requestBodyAllowed": true,
+      "requestBodyCollection": "required"
+    },
+    "PATCH": {
+      "requestBodyAllowed": true,
+      "requestBodyCollection": "required"
+    },
+    "DELETE": {
+      "requestBodyAllowed": "contract-defined",
+      "requestBodyCollection": "conditional"
+    }
+  },
+  "roleDefaultDeniedStatuses": {
+    "EA": 403,
+    "EU": 403,
+    "XR": 403,
+    "XT": 401
+  },
+  "scenarioPatterns": {
+    "Input Validation": [
+      "null value",
+      "invalid datatype",
+      "invalid enum",
+      "malformed payload"
+    ]
+  },
+  "_meta": {
+    "description": "What is this file?\nStores enterprise validation taxonomy and method rules.\n\nWhat does it do?\nDefines validation categories and IDs.\nSets method-level body constraints.\nStandardizes baseline validation interpretation \n\nwho use it?\n Analyzer\nDesigner\nGenerator\nREST Reviewer"
+  }
+}

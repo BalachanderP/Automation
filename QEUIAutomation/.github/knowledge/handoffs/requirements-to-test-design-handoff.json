@@ -1,0 +1,21 @@
+{
+  "$schema": "../schemas/stage-handoff-template.schema.json",
+  "handoffType": "requirements-to-test-design",
+  "version": "1.0.0",
+  "sourceStage": "requirements",
+  "targetStage": "test-design",
+  "status": "template",
+  "context": {
+    "selectedApiType": null,
+    "selectedModule": null,
+    "selectedEndpoint": null,
+    "httpMethod": null,
+    "contractsSource": null
+  },
+  "artifacts": {
+    "endpointSelectionHandoff": null,
+    "contractsSourceHandoff": null,
+    "contractResolvedHandoff": null
+  },
+  "notes": []
+}

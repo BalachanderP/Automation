@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "owner": "security-designer-agent",
+    "purpose": "Contract-driven SASP applicability registry for QEAPI security scenario design.",
+    "lastReviewed": "2026-09-13"
+  },
+
+  "version": "1.0.0",
+  "updated": "2026-08-08",
+  "owner": "security-designer-agent",
+  "description": "Contract-driven SASP applicability registry for QEAPI security scenario design.",
+
+  "statusVocabulary": [
+    "PASS",
+    "FAIL",
+    "NOT_APPLICABLE"
+  ],
+
+  "enterpriseAuthority": {
+    "expectedStatusPolicyFile": ".github/knowledge/standards/test-standards.md",
+    "resolutionOrder": [
+      "Dependency Registry",
+      "Test Standards",
+      "Swagger Contract",
+      "Runtime Evidence"
+    ]
+  },
+
+  "reservedOrRetiredIds": [
+    {
+      "id": "SASP-11",
+      "status": "RESERVED",
+      "reason": "Not defined in the current enterprise catalog"
+    },
+    {
+      "id": "SASP-20",
+      "status": "RETIRED",
+      "reason": "Replaced by a newer security validation category"
+    }
+  ],
+
+  "saspCatalog": {
+    "SASP-01": "SQL Injection",
+    "SASP-02": "Buffer Overflow / Oversized Input",
+    "SASP-03": "XSS / HTML Injection",
+    "SASP-04": "LDAP / XPath / NoSQL Injection",
+    "SASP-05": "Security Header Validation",
+    "SASP-06": "CRLF Injection",
+    "SASP-07": "Command Injection",
+    "SASP-08": "Authentication / Token Failures",
+    "SASP-09": "RFI / LFI",
+    "SASP-10": "SSRF",
+    "SASP-12": "Deserialization / Prototype Pollution",
+    "SASP-13": "XXE",
+    "SASP-14": "Host Header Poisoning",
+    "SASP-15": "CORS Misconfiguration",
+    "SASP-16": "HTTP Method Tampering",
+    "SASP-17": "Mass Assignment / Parameter Pollution",
+    "SASP-18": "JSON Bomb / Resource Exhaustion",
+    "SASP-19": "Content-Type Confusion",
+    "SASP-21": "Error / Sensitive Data Leakage",
+    "SASP-22": "CSRF-style Cross-Origin Evidence",
+    "SASP-23": "Cross-User Identifier Tampering"
+  },
+
+  "classificationGroups": [
+    {
+      "id": "SASP-21",
+      "category": "Error Handling",
+      "severity": "High",
+      "appliesTo": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    }
+  ],
+
+  "riskMapping": {
+    "SASP-21": {
+      "confidentiality": true,
+      "integrity": false,
+      "availability": true
+    }
+  },
+
+  "methodApplicability": {
+    "GET": [
+      "SASP-01",
+      "SASP-03",
+      "SASP-04",
+      "SASP-05",
+      "SASP-06",
+      "SASP-07",
+      "SASP-08",
+      "SASP-09",
+      "SASP-10",
+      "SASP-13",
+      "SASP-14",
+      "SASP-15",
+      "SASP-16",
+      "SASP-19",
+      "SASP-21",
+      "SASP-22",
+      "SASP-23"
+    ],
+
+    "POST": [
+      "SASP-01",
+      "SASP-02",
+      "SASP-03",
+      "SASP-04",
+      "SASP-05",
+      "SASP-06",
+      "SASP-07",
+      "SASP-08",
+      "SASP-09",
+      "SASP-10",
+      "SASP-12",
+      "SASP-13",
+      "SASP-14",
+      "SASP-15",
+      "SASP-16",
+      "SASP-17",
+      "SASP-18",
+      "SASP-19",
+      "SASP-21",
+      "SASP-22",
+      "SASP-23"
+    ],
+"PUT": [
+      "SASP-01",
+      "SASP-02",
+      "SASP-03",
+      "SASP-04",
+      "SASP-05",
+      "SASP-06",
+      "SASP-07",
+      "SASP-08",
+      "SASP-09",
+      "SASP-10",
+      "SASP-12",
+      "SASP-13",
+      "SASP-14",
+      "SASP-15",
+      "SASP-16",
+      "SASP-17",
+      "SASP-18",
+      "SASP-19",
+      "SASP-21",
+      "SASP-22",
+      "SASP-23"
+    ],
+
+    "PATCH": [
+      "SASP-01",
+      "SASP-02",
+      "SASP-03",
+      "SASP-04",
+      "SASP-05",
+      "SASP-06",
+      "SASP-07",
+      "SASP-08",
+      "SASP-09",
+      "SASP-10",
+      "SASP-12",
+      "SASP-13",
+      "SASP-14",
+      "SASP-15",
+      "SASP-16",
+      "SASP-17",
+      "SASP-18",
+      "SASP-19",
+      "SASP-21",
+      "SASP-22",
+      "SASP-23"
+    ],
+
+    "DELETE": [
+      "SASP-01",
+      "SASP-03",
+      "SASP-04",
+      "SASP-05",
+      "SASP-06",
+      "SASP-07",
+      "SASP-08",
+      "SASP-09",
+      "SASP-10",
+      "SASP-14",
+      "SASP-15",
+      "SASP-16",
+      "SASP-19",
+      "SASP-21",
+      "SASP-22",
+      "SASP-23",
+      "SASP-02",
+      "SASP-12",
+      "SASP-13",
+      "SASP-17",
+      "SASP-18"
+    ]
+  },
+
+  "applicabilityEngine": [
+    "Step 1: Determine HTTP Method",
+    "Step 2: Determine Content Type",
+    "Step 3: Determine Body Presence",
+    "Step 4: Determine Authentication Requirement",
+    "Step 5: Determine File Upload and XML Support",
+    "Step 6: Determine Identifier Exposure",
+    "Step 7: Select Applicable SASP Categories",
+    "Step 8: Generate Security Scenarios"
+  ],
+
+  "structureFilters": [
+    {
+      "id": "NO_BODY",
+      "when": "requestBody.present == false",
+      "result": "mark NOT_APPLICABLE for SASP-12, SASP-17, SASP-18"
+    },
+    {
+      "id": "NO_XML_SUPPORT",
+      "when": "contentType.supportsXml == false",
+      "result": "mark NOT_APPLICABLE for SASP-13"
+    },
+    {
+      "id": "NO_IDENTIFIER_SURFACE",
+      "when": "identifierSurface.present == false",
+      "result": "mark NOT_APPLICABLE for SASP-23"
+    },
+    {
+      "id": "NO_AUTH_REQUIRED",
+      "when": "auth.required == false",
+      "result": "mark NOT_APPLICABLE for SASP-08 unless anonymous-abuse scenario exists"
+    },
+    {
+      "id": "NO_HEADER_BRANCH",
+      "when": "endpoint.headerProcessing == false",
+      "result": "mark NOT_APPLICABLE for SASP-19"
+    },
+    {
+      "id": "NO_INPUT_SURFACE",
+      "when": "pathParams.count == 0 && queryParams.count == 0 && requestBody.present == false",
+      "result": "mark NOT_APPLICABLE for SASP-01, SASP-03, SASP-04, SASP-06, SASP-07, SASP-09, SASP-10"
+    }
+  ],
+
+  "scenarioTemplate": {
+    "requiredFields": [
+      "securityTestId",
+      "saspCategory",
+      "riskLevel",
+      "attackObjective",
+      "preconditions",
+      "requestManipulation",
+      "expectedSecureBehaviour",
+      "expectedStatus",
+      "failureClassification",
+      "automationPriority",
+      "result"
+    ],
+
+    "allowedResultValues": [
+      "PASS",
+      "FAIL",
+      "NOT_APPLICABLE"
+    ],
+
+    "notes": [
+      "Generate security scenarios independently from functional RBAC scenarios.",
+      "Never assume vulnerability existence; verify protection behaviour.",
+      "Do not override enterprise expected status codes."
+    ]
+  },
+
+  "agentGuidance": {
+    "purpose": "Helps agents select applicable SASP categories and governance risk dimensions consistently.",
+    "usedBy": [
+      "contract-analyzer",
+      "test-designer",
+      "api-test-script-generator",
+      "api-test-coverage-analyzer",
+      "api-compliance-reviewer"
+    ]
+  },
+
+  "_meta": {
+    "description": "What is this file?\nStores SASP security applicability and generation rules.\n\nWhat does it do?\nDefines method-wise applicable SASP categories.\nApplies structure-based NOT_APPLICABLE filters.\nProvides security scenario generation guidance."
+  }
+}

@@ -12,6 +12,8 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalSetup: require.resolve('./src/framework/lifeCycle/global-setup'),
+  globalTeardown: require.resolve('./src/framework/lifeCycle/global-teardown'),
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -21,11 +23,12 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 2,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+  outputDir: 'artifacts/test-results',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['line'],
-    ['html'],
-    ['allure-playwright']
+    ['html', { outputFolder: 'artifacts/playwright-report' }],
+    ['allure-playwright', { resultsDir: 'artifacts/allure-results' }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/stage-handoff-template.schema.json",
+  "handoffType": "automation-to-governance",
+  "version": "1.0.0",
+  "sourceStage": "automation",
+  "targetStage": "governance",
+  "status": "template",
+  "context": {
+    "executionRunId": null,
+    "module": null,
+    "specFiles": []
+  },
+  "artifacts": {
+    "scriptGenerationHandoff": null,
+    "executionHandoff": null,
+    "failureAnalysisHandoff": null
+  },
+  "notes": []
+}

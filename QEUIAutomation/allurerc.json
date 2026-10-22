@@ -1,0 +1,6 @@
+{
+  "name": "Playwright Scheduled Execution",
+  "historyPath": "./artifacts/allure-history.jsonl",
+  "appendHistory": true,
+  "historyLimit": 50
+}
